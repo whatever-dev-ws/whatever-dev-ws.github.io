@@ -1,0 +1,89 @@
+---
+description: Project structure, conventions, and tooling
+globs: ['src/**/*']
+alwaysApply: true
+---
+
+# Project Defaults
+
+## Tech Stack
+
+- Astro 5.x, Tailwind 4, TypeScript (strict), pnpm
+- ESLint + Prettier (with astro, tailwindcss, jsx-a11y plugins)
+- astro-icon for icons
+
+## Code Quality
+
+```bash
+pnpm prettier --write .    # Format
+pnpm eslint . --fix        # Lint
+```
+
+## File Structure
+
+```
+src/
+├── assets/        # Images (imported as modules)
+├── components/    # All components (PascalCase.astro)
+├── layouts/       # Page wrappers
+├── pages/         # Routes
+├── styles/        # global.css, fonts.css
+└── schemas/       # Zod validation (if using forms)
+public/            # Static assets (favicons, robots.txt)
+```
+
+## Imports
+
+- Always use path aliases, never relative imports
+- Available: `@components`, `@layouts`, `@pages`, `@assets`, `@styles`, `@schemas`, `@public`
+
+**Order within files:**
+
+1. Framework (`astro:*`, `astro-icon/components`)
+2. Components (`@components/*`, `@layouts/*`)
+3. Assets (`@assets/*`)
+4. Schemas/utilities (`@schemas/*`)
+5. Types (`import type` from `astro/types`)
+
+## Component Structure Order
+
+1. Imports
+2. Type definitions (`type Props = {...}`)
+3. Props destructuring
+4. Data fetching
+5. Computed values
+6. Template
+7. `<style>` (if needed)
+8. `<script>` (if needed)
+
+## TypeScript
+
+- Use `type`, never `interface`
+- Extend HTML attributes: `type Props = HTMLAttributes<'button'> & {...}`
+- Let TypeScript infer return types
+- Co-locate types with usage (no central `types/` folder)
+
+## Tailwind
+
+- Write classes inline in template only (Prettier plugin won't sort frontmatter variables)
+- Use `class:list` for conditionals
+
+```astro
+<!-- ✓ Inline classes with class:list -->
+<button
+  class:list={[
+    'px-4 py-2 text-white',
+    variant === 'primary' && 'bg-blue-500 hover:bg-blue-600',
+    variant === 'secondary' && 'bg-gray-500 hover:bg-gray-600',
+  ]}
+>
+  <slot />
+</button>
+
+<!-- ✗ Classes in frontmatter variables -->
+```
+
+## Styles Setup
+
+- `src/styles/global.css`: imports fonts.css + tailwindcss
+- `src/styles/fonts.css`: @import for external, @font-face for local fonts

@@ -1,0 +1,70 @@
+---
+description: Semantic HTML and accessibility
+globs: ["**/*.astro", "**/*.html"]
+alwaysApply: true
+---
+
+# Semantic HTML
+
+## Interactive Elements
+- URL change → `<a href="...">`
+- Action → `<button type="button">` or `<button type="submit">`
+- Never `<div>`/`<span>` with click handlers
+
+**Button types (always specify):**
+- `type="submit"` — submits form
+- `type="button"` — no form behavior (default for most buttons)
+- `type="reset"` — resets form
+
+## Page Structure
+**Required landmarks:**
+- `<header>` — site header
+- `<main>` — one per page, primary content
+- `<footer>` — site footer
+
+**Use semantic elements for:**
+- `<nav>` — navigation sections
+- `<aside>` — supplementary content
+- `<section>` — page sections with headings
+- `<article>` — self-contained, syndicatable content (blog posts, comments)
+
+**Use `<div>` for:** layout containers, styling hooks, visual grouping
+
+## Headings
+- One `<h1>` per page
+- Sequential hierarchy (don't skip levels going down)
+- Every `<section>` should have a heading
+
+## Lists
+Use `<ul>`/`<ol>` for related item collections (nav links, feature grids, menus) even if styled inline. Use `list-none` to remove bullets.
+
+## Forms
+- Labels required: `<label for="id">` or wrap input in `<label>`
+- Use semantic input types: `email`, `tel`, `url`, `search`, `date`
+- Use validation attributes: `required`, `minlength`, `maxlength`, `min`, `max`
+
+## Images
+- Content images: descriptive `alt` text
+- Decorative images: empty `alt=""`
+
+## Accessibility
+- Prefer native elements (`<button>`, `<a>`, `<input>`) — built-in keyboard/screen reader support
+- ARIA only for: icon-only buttons (`aria-label`), status updates (`aria-live`), custom widgets
+- Don't duplicate: `<button role="button">` ✗ | `<button aria-label="Save">Save</button>` ✗
+- Preserve focus visibility: use `focus-visible:ring-2`, never `outline-none`
+
+## Patterns
+```html
+<!-- Modal -->
+<dialog>
+  <h2>Title</h2>
+  <button type="button">Close</button>
+</dialog>
+
+<!-- Loading state -->
+<div aria-live="polite" aria-busy="true">Loading...</div>
+```
+
+---
+
+**Core principle**: Use semantic HTML — it's accessible by default. Use `<div>` for layout and styling, semantic elements for meaning.

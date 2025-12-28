@@ -1,0 +1,79 @@
+---
+description: Astro 5 framework-specific patterns and best practices
+globs: ["**/*.astro", "src/**/*.ts", "src/**/*.js"]
+alwaysApply: true
+---
+
+# Astro Rules
+
+## Documentation
+- When uncertain about Astro syntax/APIs, use Astro Docs MCP before proceeding
+
+## Islands Architecture
+- Default to `.astro` + `<script>` for interactivity
+- Use framework islands (React, Vue, Svelte) only when explicitly requested
+- Client directives: `client:visible` (default) | `client:idle` (above-fold, not immediate) | `client:load` (prevent layout shift) | `client:only` (SSR incompatibility)
+
+## Scripts
+- Scripts run ONCE per page, not per component instance
+- Use `querySelectorAll` or event delegation for multi-instance components
+
+**Data passing:**
+- `data-*` attributes → script stays bundled (preferred)
+- `define:vars` → creates inline script (not bundled/deduped)
+- `is:inline` → theme switching, FOUC prevention, third-party scripts that break when bundled
+
+```astro
+<!-- Multi-instance: use querySelectorAll or delegation -->
+<script>
+  document.querySelectorAll('.item').forEach(el => 
+    el.addEventListener('click', handler)
+  );
+</script>
+
+<!-- Data passing: data attributes for bundled scripts -->
+<div data-id={itemId} data-config={JSON.stringify(config)}></div>
+<script>
+  const el = document.querySelector('[data-id]');
+  const config = JSON.parse(el?.dataset.config ?? '{}');
+</script>
+```
+
+## Directives
+```astro
+<!-- class:list for conditionals -->
+<div class:list={['base', isActive && 'active', className]} />
+
+<!-- set:html for HTML content -->
+<div set:html={htmlContent} />
+
+<!-- set:text for user input (auto-escaped) -->
+<p set:text={userInput} />
+```
+
+## Content Collections
+- Always use `getCollection`/`getEntry` from `astro:content`
+- Never import markdown files directly
+- Define schemas in `src/content.config.ts`
+
+## Images
+```astro
+import { Image } from 'astro:assets';
+import hero from '@assets/hero.jpg';
+
+<!-- Local images: use Image component -->
+<Image src={hero} alt="..." width={1200} height={600} />
+
+<!-- Remote images: must specify dimensions -->
+<Image src="https://..." alt="..." width={800} height={400} />
+```
+
+## Common Mistakes
+- Props computed once at build/request time (not reactive)
+- Browser APIs (`window`, `document`) unavailable in frontmatter — use `<script>`
+- Scoped styles don't penetrate framework islands — use `:global()` when needed
+- Dynamic routes require `getStaticPaths` for SSG
+
+---
+
+**Core principle**: Astro is static-first. Default to HTML + CSS + vanilla JS in `<script>` tags. Use framework islands only when explicitly requested.
