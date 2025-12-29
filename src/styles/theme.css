@@ -1,0 +1,6 @@
+@theme {
+  --font-display: 'sole-serif-titling-variable', serif;
+  --font-display--font-feature-settings: 'salt';
+
+  --font-body: 'sole-serif-small-variable', serif;
+}

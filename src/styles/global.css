@@ -1,1 +1,15 @@
-@import "tailwindcss";
+@import './fonts.css';
+@import 'tailwindcss';
+@import './theme.css' layer(theme);
+
+.hero-heading-text {
+  @apply font-display text-5xl font-extrabold md:text-7xl;
+}
+
+.heading-text {
+  @apply font-body text-xl leading-[1.4] font-medium md:text-2xl;
+}
+
+.body-text {
+  @apply font-body text-base leading-[1.4] md:text-lg;
+}

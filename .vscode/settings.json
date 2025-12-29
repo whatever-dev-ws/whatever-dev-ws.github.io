@@ -7,5 +7,5 @@
   "emmet.includeLanguages": {
     "astro": "html"
   },
-  "files.associations": { ".css": "tailwindcss" }
+  "files.associations": { "*.css": "tailwindcss" }
 }

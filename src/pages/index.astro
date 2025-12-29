@@ -3,5 +3,121 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-  <h1>Astro Starter</h1>
+  <main>
+    <div
+      class="mx-auto grid max-w-5xl grid-cols-1 gap-4 gap-y-16 px-4 py-30 md:grid-cols-4 md:gap-y-28 md:px-8"
+    >
+      <div class="col-span-full grid grid-cols-subgrid gap-y-14 md:gap-y-24">
+        <div class="col-span-full grid grid-cols-subgrid gap-y-10 md:gap-y-14">
+          <article class="col-span-full grid grid-cols-subgrid gap-y-16 md:gap-y-28">
+            <div class="col-span-full grid grid-cols-subgrid gap-y-12 md:gap-y-18">
+              <header class="col-span-full">
+                <h1 class="hero-heading-text">
+                  The blacksmith<br /> and the software
+                </h1>
+              </header>
+              <div class="col-span-full grid grid-cols-subgrid gap-y-6 md:gap-y-10">
+                <p class="heading-text col-span-3 col-start-2">
+                  Quando il fabbro usa un martello per forgiare un coltello, sta essenzialmente
+                  impiegando uno strumento preesistente per crearne uno nuovo con uno scopo diverso.
+                  Allo stesso modo, oggi possiamo utilizzare un modello linguistico di grandi
+                  dimensioni per scrivere software destinato a una vasta gamma di esigenze: questa
+                  pratica è chiamata vibe coding.
+                </p>
+                <p class="heading-text col-span-3 col-start-2">
+                  La programmazione non è mai stata così accessibile a chiunque, indipendentemente
+                  dal proprio background tecnico. In questo workshop pratico esploreremo e
+                  discuteremo questa pratica applicata al creative coding, introducendo alcuni
+                  concetti chiave, buone pratiche e avvertenze riguardo al vibe coding.
+                </p>
+              </div>
+            </div>
+            <footer class="col-span-full grid grid-cols-subgrid gap-y-10 md:gap-y-14">
+              <p class="body-text col-span-3 col-start-1">
+                "The blacksmith and the software" è realizzato all'interno del <a
+                  class="decoration-skip-ink-auto underline decoration-solid"
+                  href="https://wud-bz.it">World Usability Day Bolzano</a
+                >, NOI Techpark, 7 novembre 2025
+              </p>
+              <dl class="col-span-full grid grid-cols-subgrid gap-y-2">
+                <div>
+                  <dt class="body-text">Host</dt>
+                  <dd class="body-text">
+                    <a
+                      class="decoration-skip-ink-auto underline decoration-solid"
+                      href="https://rlmodugno.com">Rocco Modugno</a
+                    >
+                  </dd>
+                </div>
+                <div>
+                  <dt class="body-text">Co-Host, Design</dt>
+                  <dd class="body-text">Andrea Maffei</dd>
+                </div>
+                <div>
+                  <dt class="body-text">Development</dt>
+                  <dd class="body-text">Michele Maffei</dd>
+                </div>
+              </dl>
+            </footer>
+          </article>
+          <aside class="col-span-2 col-start-1">
+            <h2 class="body-text font-medium">Useful Links & References</h2>
+            <ul>
+              <li class="body-text">
+                <a
+                  class="decoration-skip-ink-auto underline decoration-solid"
+                  href="https://reas.com">Casey Reas</a
+                >
+              </li>
+              <li class="body-text">
+                <a
+                  class="decoration-skip-ink-auto underline decoration-solid"
+                  href="https://natureofcode.com">The nature of code</a
+                >
+              </li>
+              <li class="body-text">
+                <a
+                  class="decoration-skip-ink-auto underline decoration-solid"
+                  href="https://processing.org">Processing Organization</a
+                >
+              </li>
+              <li class="body-text">
+                Simon Willison - <a
+                  class="decoration-skip-ink-auto underline decoration-solid"
+                  href="https://simonwillison.net/2025/Mar/11/using-llms-for-code/"
+                  >Using LLMs for code</a
+                >
+              </li>
+            </ul>
+          </aside>
+        </div>
+        <nav aria-label="Actions" class="col-span-full grid grid-cols-subgrid gap-y-2">
+          <a
+            class="font-body col-span-1 col-start-1 rounded-full bg-[#EEEEEE] px-3 pt-3 pb-[calc(var(--spacing)*3.5)] text-center text-lg leading-none font-medium text-[#222222]"
+            href="/gallery">Gallery</a
+          >
+          <a
+            class="font-body col-span-1 col-start-2 rounded-full bg-[#EEEEEE] px-3 pt-3 pb-[calc(var(--spacing)*3.5)] text-center text-lg leading-none font-medium text-[#222222]"
+            href="/upload">Upload a Tool</a
+          >
+        </nav>
+      </div>
+      <section class="col-span-full grid grid-cols-subgrid gap-y-12 md:gap-y-18">
+        <h2 class="heading-text col-span-3 col-start-1">Tales from the Developer</h2>
+        <p class="body-text col-span-3 col-start-2">
+          To err is human but to arr is pirate!! A pirate is a man that is weak to achieve but too
+          strong to steal from even the greatest achiever. Without the messy paperwork. Ahoy! lets
+          trouble the water! I'd love to drop anchor in your lagoon. The rougher the seas, the
+          smoother we sail. Ahoy! And that was done without a single drop of rum... Me I'm
+          Dishonest. And A Dishonest Man You Can Always Trust To Be Dishonest. Honestly Its The
+          Honest Ones You Want To Watch Out For Because You Never Know When They Are Going To Do
+          Something Completely Stupid! Not all treasure is silver and gold Yarrrr! there be ony two
+          ranks of leader amongst us pirates! Captain and if your really notorious then it's Cap'n!
+          you know, thats the 2nd time I'v watched that man sail away with my ship. Right from the
+          Voyage og Noah, surviving was by sailing. Avast ye! and sail against the tides. Whats a
+          pirate's favorite fast food restaurant? Arrrrbys!
+        </p>
+      </section>
+    </div>
+  </main>
 </Layout>
