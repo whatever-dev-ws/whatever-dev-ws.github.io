@@ -1,0 +1,46 @@
+---
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout>
+  <main>
+    <div
+      class="mx-auto grid max-w-5xl grid-cols-1 gap-4 gap-y-16 px-4 py-30 md:grid-cols-4 md:gap-y-28 md:px-8"
+    >
+      <div class="col-span-full grid grid-cols-subgrid gap-y-14 md:gap-y-24">
+        <section class="col-span-full grid grid-cols-subgrid gap-y-16 md:gap-y-28">
+          <div class="col-span-full grid grid-cols-subgrid gap-y-12 md:gap-y-18">
+            <header class="col-span-full">
+              <h1 class="hero-heading-text">
+                404<br /> Page not found
+              </h1>
+            </header>
+            <div class="col-span-full grid grid-cols-subgrid gap-y-6 md:gap-y-10">
+              <p class="heading-text col-span-3 col-start-2">
+                Proprio come un fabbro che cerca di forgiare una spada nel buio senza fuoco, ti sei
+                ritrovato in un luogo che non esiste. Il martello colpisce il vuoto, la fucina è
+                spenta, e il metallo rimane freddo.
+              </p>
+              <p class="heading-text col-span-3 col-start-2">
+                Ma non preoccuparti: anche i migliori artigiani sbagliano strada. Torniamo alla
+                fucina principale e ricominciamo da capo. Il ferro attende di essere lavorato, e il
+                codice aspetta di essere scritto.
+              </p>
+              <p class="heading-text col-span-3 col-start-2 text-[#EEEEEE]/60">
+                (Questo testo è stato generato interamente da AI)
+              </p>
+            </div>
+          </div>
+          <footer class="col-span-full grid grid-cols-subgrid gap-y-10 md:gap-y-14">
+            <nav aria-label="Actions" class="col-span-full grid grid-cols-subgrid gap-y-2">
+              <a
+                class="font-body col-span-1 col-start-1 rounded-full bg-[#EEEEEE] px-3 pt-3 pb-[calc(var(--spacing)*3.5)] text-center text-lg leading-none font-medium text-[#222222]"
+                href="/">Torna alla fucina</a
+              >
+            </nav>
+          </footer>
+        </section>
+      </div>
+    </div>
+  </main>
+</Layout>
