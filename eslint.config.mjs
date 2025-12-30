@@ -50,7 +50,7 @@ export default defineConfig([
 
   // Ignore patterns
   {
-    ignores: ['dist/**', '**/*.d.ts'],
+    ignores: ['dist/**', '**/*.d.ts', 'mocks/**'],
   },
 
   // Prettier config
