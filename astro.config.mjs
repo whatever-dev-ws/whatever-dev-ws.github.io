@@ -7,6 +7,7 @@ import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'whatever-dev-ws.github.io',
   vite: {
     plugins: [tailwindcss()],
     resolve: {
@@ -21,6 +22,5 @@ export default defineConfig({
       },
     },
   },
-
   integrations: [icon()],
 });
