@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 import icon from 'astro-icon';
 
+import svelte from '@astrojs/svelte';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://whatever-dev-ws.github.io',
@@ -19,8 +21,9 @@ export default defineConfig({
         '@styles': '/src/styles',
         '@assets': '/src/assets',
         '@schemas': '/src/schemas',
+        '@utils': '/src/utils',
       },
     },
   },
-  integrations: [icon()],
+  integrations: [icon(), svelte()],
 });

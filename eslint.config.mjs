@@ -25,6 +25,14 @@ export default defineConfig([
   ts.configs.strict,
   ts.configs.stylistic,
 
+  // TypeScript rules (apply to .ts files)
+  {
+    files: ['**/*.ts'],
+    rules: {
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+    },
+  },
+
   // Astro setup with a11y
   astro.configs.recommended,
   astro.configs['jsx-a11y-recommended'],
@@ -40,7 +48,6 @@ export default defineConfig([
         project: './tsconfig.json',
       },
     },
-
     rules: {
       // 'no-undef': 'off', // Disable "not defined" errors for specific Astro types that are globally available (ImageMetadata)
       // '@typescript-eslint/no-explicit-any': 'off',
