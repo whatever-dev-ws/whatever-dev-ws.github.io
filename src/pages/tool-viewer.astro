@@ -1,0 +1,52 @@
+---
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout>
+  <nav class="absolute bottom-0 left-0 z-10 p-4">
+    <a href="/workshop" class="body-text text-[#EEEEEE] hover:underline"> &lt; Gallery List </a>
+  </nav>
+  <main id="tool-container" class="h-screen w-screen"></main>
+</Layout>
+
+<script>
+  const container = document.getElementById('tool-container') as HTMLDivElement;
+  const url = new URLSearchParams(window.location.search).get('tool');
+
+  /* eslint-disable */
+  const srcDoc = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.min.js"><\/script>
+      <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/addons/p5.sound.min.js"><\/script>
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          height: 100vh;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      </style>
+    </head>
+    <body><script src="${url}"><\/script></body>
+    </html>`;
+  /* eslint-enable */
+
+  if (!url) {
+    console.error('No tool URL provided');
+  }
+
+  if (url) {
+    const iframe = document.createElement('iframe');
+    iframe.className = 'h-full w-full';
+    iframe.title = 'Tool viewer';
+
+    iframe.srcdoc = srcDoc;
+
+    container.appendChild(iframe);
+  }
+</script>

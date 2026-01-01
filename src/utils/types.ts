@@ -8,6 +8,7 @@ export type Sketch = {
 export type Output = {
   id: string;
   sketchId: string;
+  sketchFilename: string;
   filename: string;
   createdAt: string;
 };

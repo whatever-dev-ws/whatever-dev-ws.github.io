@@ -35,24 +35,28 @@
     {
       "id": "bouncingBall-dc69a0",
       "sketchId": "mariorossi-bouncingBall-c96877",
+      "sketchFilename": "sketches/mariorossi-bouncingBall-c96877.js",
       "filename": "outputs/bouncingBall-dc69a0.png",
       "createdAt": "2025-12-30T13:15:27Z"
     },
     {
       "id": "colorfulSpiral-6117de",
       "sketchId": "mariorossi-colorfulSpiral-0e642b",
+      "sketchFilename": "sketches/mariorossi-colorfulSpiral-0e642b.js",
       "filename": "outputs/colorfulSpiral-6117de.png",
       "createdAt": "2025-12-30T12:18:27Z"
     },
     {
       "id": "mouseCircle-755a49",
       "sketchId": "mariorossi-mouseCircle-2bc40b",
+      "sketchFilename": "sketches/mariorossi-mouseCircle-2bc40b.js",
       "filename": "outputs/mouseCircle-755a49.png",
       "createdAt": "2025-12-30T13:14:27Z"
     },
     {
       "id": "randomShapes-f85f03",
       "sketchId": "mariorossi-randomShapes-1effb1",
+      "sketchFilename": "sketches/mariorossi-randomShapes-1effb1.js",
       "filename": "outputs/randomShapes-f85f03.png",
       "createdAt": "2025-12-30T13:04:27Z"
     }

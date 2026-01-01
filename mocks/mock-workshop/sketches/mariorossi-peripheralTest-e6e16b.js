@@ -9,10 +9,10 @@ let isPlayingSound = false;
 function setup() {
   createCanvas(400, 400);
   textAlign(LEFT, TOP);
-  
+
   // Try to get microphone
   mic = new p5.AudioIn();
-  
+
   // Try to get webcam
   capture = createCapture(VIDEO);
   capture.size(160, 120);
@@ -21,34 +21,40 @@ function setup() {
 
 function draw() {
   background(240);
-  
+
   // Title
   fill(0);
   textSize(18);
   text('Peripheral Permissions Test', 10, 10);
-  
+
   let yPos = 50;
   textSize(14);
-  
+
   // Microphone status
   fill(0);
   text('🎤 Microphone:', 10, yPos);
   if (mic && mic.enabled) {
-    micLevel = mic.getLevel();
-    fill(0, 150, 0);
-    text('✓ Active', 140, yPos);
-    // Visual feedback - level meter
-    fill(0, 200, 0);
-    rect(10, yPos + 20, micLevel * 300, 10);
+    try {
+      micLevel = mic.getLevel();
+      fill(0, 150, 0);
+      text('✓ Active', 140, yPos);
+      // Visual feedback - level meter
+      fill(0, 200, 0);
+      rect(10, yPos + 20, micLevel * 300, 10);
+    } catch (e) {
+      // Mic is starting but not ready yet
+      fill(150, 100, 0);
+      text('⚠ Starting...', 140, yPos);
+    }
   } else {
     fill(150, 0, 0);
     text('✗ Not enabled', 140, yPos);
     fill(100);
     text('Click to start', 10, yPos + 20);
   }
-  
+
   yPos += 60;
-  
+
   // Keyboard status
   fill(0);
   text('⌨️  Keyboard:', 10, yPos);
@@ -61,9 +67,9 @@ function draw() {
     fill(150, 100, 0);
     text('⚠ Press any key', 140, yPos);
   }
-  
+
   yPos += 60;
-  
+
   // Webcam status
   fill(0);
   text('📷 Webcam:', 10, yPos);
@@ -76,9 +82,9 @@ function draw() {
     fill(150, 0, 0);
     text('✗ Not enabled', 140, yPos);
   }
-  
+
   yPos += 160;
-  
+
   // Speakers status
   fill(0);
   text('🔊 Speakers:', 10, yPos);
@@ -93,7 +99,7 @@ function draw() {
     fill(150, 100, 0);
     text('⚠ Click to test', 140, yPos);
   }
-  
+
   // Instructions
   fill(100);
   textSize(11);
@@ -105,16 +111,16 @@ function mousePressed() {
   if (mic && !mic.enabled) {
     mic.start();
   }
-  
+
   // Play a test tone (speakers)
   if (!audioContext) {
     audioContext = getAudioContext();
   }
-  
+
   if (audioContext.state !== 'running') {
     audioContext.resume();
   }
-  
+
   // Play a short tone
   if (!isPlayingSound) {
     isPlayingSound = true;
@@ -138,4 +144,3 @@ function keyPressed() {
   }
   return false;
 }
-

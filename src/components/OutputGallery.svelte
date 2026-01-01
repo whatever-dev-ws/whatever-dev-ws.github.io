@@ -19,12 +19,14 @@
   <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {#each galleryOutputs as output}
       <li class="bg-[#EEEEEE] aspect-3/2">
-        <img
-          src={`${BASE_URL}/${output.filename}`}
-          alt={`Output ${output.id} for sketch ${output.sketchId}`}
-          class="w-full h-full object-contain"
-          loading="lazy"
-        />
+        <a href={`/tool-viewer?tool=${BASE_URL}/${output.sketchFilename}`}>
+          <img
+            src={`${BASE_URL}/${output.filename}`}
+            alt={`Output ${output.id} for sketch ${output.sketchId}`}
+            class="w-full h-full object-contain"
+            loading="lazy"
+          />
+        </a>
       </li>
     {/each}
   </ul>

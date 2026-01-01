@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Sketch } from '@utils/types';
+  import { BASE_URL } from '@utils/constants';
 
   type Props = {
     sketches: Sketch[];
@@ -14,7 +15,7 @@
     <ul class="list-none space-y-4">
       {#each sketches as sketch}
         <li class="body-text">
-          {sketch.id}
+          <a href={`/tool-viewer?tool=${BASE_URL}/${sketch.filename}`}>{sketch.id}</a>
         </li>
       {/each}
     </ul>
