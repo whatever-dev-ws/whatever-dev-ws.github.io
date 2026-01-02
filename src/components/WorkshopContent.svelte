@@ -19,6 +19,13 @@
     const found = manifest.tools.find((tool) => tool.id === selectedToolId);
     return found ?? null;
   });
+  let toolViewerUrl = $derived.by(() => {
+    if (!selectedTool) return '';
+    const params = new URLSearchParams({
+      tool: `${baseUrl}/${selectedTool.url}`,
+    });
+    return `${currentWorkshopPath}tool-viewer/?${params.toString()}`;
+  });
 
   let downloadPromise = $state<Promise<void> | null>(null);
 
@@ -62,7 +69,7 @@
       </div>
       <div class="flex flex-col md:flex-row md:gap-8 gap-4">
         <Button.Root
-          href={`${currentWorkshopPath}/tool-viewer?tool=${baseUrl}/${selectedTool.url}`}
+          href={toolViewerUrl}
           class="body-text text-[#EEEEEE] px-12 pt-2 pb-[calc(var(--spacing)*2.5)] rounded-full bg-[#222222] font-medium leading-none text-center flex items-center justify-center gap-4"
         >
           <span aria-hidden="true" class="text-xl">&#9654;</span>
