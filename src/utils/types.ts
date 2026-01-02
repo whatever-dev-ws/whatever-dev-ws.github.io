@@ -10,8 +10,8 @@ export type Tool = {
 
 export type Output = {
   id: string;
-  sketchId: string;
-  sketchUrl: string;
+  toolId: string;
+  toolUrl: string;
   url: string;
   createdAt: string;
 };

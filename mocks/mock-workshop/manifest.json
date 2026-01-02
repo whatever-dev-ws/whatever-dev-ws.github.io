@@ -49,29 +49,29 @@
   "outputs": [
     {
       "id": "bouncingBall-dc69a0",
-      "sketchId": "mariorossi-bouncingBall-c96877",
-      "sketchUrl": "tools/mariorossi-bouncingBall-c96877.js",
+      "toolId": "mariorossi-bouncingBall-c96877",
+      "toolUrl": "tools/mariorossi-bouncingBall-c96877.js",
       "url": "outputs/bouncingBall-dc69a0.png",
       "createdAt": "2025-12-30T13:15:27Z"
     },
     {
       "id": "colorfulSpiral-6117de",
-      "sketchId": "mariorossi-colorfulSpiral-0e642b",
-      "sketchUrl": "tools/mariorossi-colorfulSpiral-0e642b.js",
+      "toolId": "mariorossi-colorfulSpiral-0e642b",
+      "toolUrl": "tools/mariorossi-colorfulSpiral-0e642b.js",
       "url": "outputs/colorfulSpiral-6117de.png",
       "createdAt": "2025-12-30T12:18:27Z"
     },
     {
       "id": "mouseCircle-755a49",
-      "sketchId": "mariorossi-mouseCircle-2bc40b",
-      "sketchUrl": "tools/mariorossi-mouseCircle-2bc40b.js",
+      "toolId": "mariorossi-mouseCircle-2bc40b",
+      "toolUrl": "tools/mariorossi-mouseCircle-2bc40b.js",
       "url": "outputs/mouseCircle-755a49.png",
       "createdAt": "2025-12-30T13:14:27Z"
     },
     {
       "id": "randomShapes-f85f03",
-      "sketchId": "mariorossi-randomShapes-1effb1",
-      "sketchUrl": "tools/mariorossi-randomShapes-1effb1.js",
+      "toolId": "mariorossi-randomShapes-1effb1",
+      "toolUrl": "tools/mariorossi-randomShapes-1effb1.js",
       "url": "outputs/randomShapes-f85f03.png",
       "createdAt": "2025-12-30T13:04:27Z"
     }

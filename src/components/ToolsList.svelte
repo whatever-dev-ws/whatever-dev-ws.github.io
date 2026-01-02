@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Tool } from '@utils/types';
-  import { BASE_URL } from '@utils/constants';
 
   type Props = {
     tools: Tool[];
+    onSelectTool: (toolId: string) => void;
   };
 
-  let { tools }: Props = $props();
+  let { tools, onSelectTool }: Props = $props();
 </script>
 
 <section>
@@ -15,7 +15,7 @@
     <ul class="list-none space-y-4">
       {#each tools as tool}
         <li class="body-text">
-          <a href={`/tool-viewer?tool=${BASE_URL}/${tool.url}`}>{tool.name} ({tool.id})</a>
+          <button type="button" onclick={() => onSelectTool(tool.id)}>{tool.id}</button>
         </li>
       {/each}
     </ul>

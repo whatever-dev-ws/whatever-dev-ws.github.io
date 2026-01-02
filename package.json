@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "4.1.13",
     "astro": "5.16.6",
     "astro-icon": "1.1.5",
+    "bits-ui": "2.14.4",
     "sharp": "0.34.5",
     "svelte": "^5.46.1",
     "tailwindcss": "4.1.13",

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import OutputGallery from './OutputGallery.svelte';
-  import ToolsList from './ToolsList.svelte';
+  import WorkshopContent from './WorkshopContent.svelte';
   import { BASE_URL } from '@utils/constants';
   import type { Manifest } from '@utils/types';
 
@@ -14,10 +13,7 @@
     <p>Loading...</p>
   </div>
 {:then manifest}
-  <div class="flex flex-col gap-16">
-    <OutputGallery outputs={manifest.outputs} />
-    <ToolsList tools={manifest.tools} />
-  </div>
+  <WorkshopContent {manifest} />
 {:catch error}
   <div>
     <p>Error: {error.message}</p>
