@@ -5,9 +5,10 @@
 
   type Props = {
     repoUrl: string;
+    currentWorkshopPath: string;
   };
 
-  let { repoUrl }: Props = $props();
+  let { repoUrl, currentWorkshopPath }: Props = $props();
 
   let baseUrl = $derived(import.meta.env.DEV ? DEV_URL : repoUrl);
 
@@ -21,7 +22,7 @@
     <p>Loading...</p>
   </div>
 {:then manifest}
-  <WorkshopContent {baseUrl} {manifest} />
+  <WorkshopContent {baseUrl} {manifest} {currentWorkshopPath} />
 {:catch error}
   <div>
     <p>Error: {error.message}</p>

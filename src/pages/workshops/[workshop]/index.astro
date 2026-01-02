@@ -11,6 +11,7 @@ export async function getStaticPaths() {
   }));
 }
 
+const { pathname } = Astro.url;
 const { title, repoUrl } = Astro.props;
 ---
 
@@ -20,7 +21,7 @@ const { title, repoUrl } = Astro.props;
       <header>
         <h1 class="hero-heading-text">{title}</h1>
       </header>
-      <WorkshopViewer repoUrl={repoUrl} client:load />
+      <WorkshopViewer repoUrl={repoUrl} currentWorkshopPath={pathname} client:load />
     </div>
   </main>
 </Layout>

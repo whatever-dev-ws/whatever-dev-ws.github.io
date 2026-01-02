@@ -1,10 +1,21 @@
 ---
 import Layout from '@layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const workshops = await getCollection('workshops');
+  return workshops.map((workshop) => ({
+    params: { workshop: workshop.id },
+  }));
+}
+
+const { workshop } = Astro.params;
+const backPath = `/workshops/${workshop}`;
 ---
 
 <Layout>
   <nav class="absolute bottom-0 left-0 z-10 p-4">
-    <a href="/workshop" class="body-text text-[#EEEEEE] hover:underline"> &lt; Gallery List </a>
+    <a href={backPath} class="body-text text-[#EEEEEE] hover:underline"> &lt; Gallery List </a>
   </nav>
   <main id="tool-container" class="h-screen w-screen"></main>
 </Layout>

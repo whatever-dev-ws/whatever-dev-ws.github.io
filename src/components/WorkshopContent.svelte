@@ -3,15 +3,15 @@
   import { Button } from 'bits-ui';
   import ToolsList from './ToolsList.svelte';
   import Modal from './Modal.svelte';
-  import { DEV_URL } from '@utils/constants';
   import type { Manifest } from '@utils/types';
 
   type Props = {
     manifest: Manifest;
     baseUrl: string;
+    currentWorkshopPath: string;
   };
 
-  let { manifest, baseUrl }: Props = $props();
+  let { manifest, baseUrl, currentWorkshopPath }: Props = $props();
 
   let selectedToolId = $state<string | null>(null);
   let selectedTool = $derived.by(() => {
@@ -62,7 +62,7 @@
       </div>
       <div class="flex flex-col md:flex-row md:gap-8 gap-4">
         <Button.Root
-          href={`/tool-viewer?tool=${baseUrl}/${selectedTool.url}`}
+          href={`${currentWorkshopPath}/tool-viewer?tool=${baseUrl}/${selectedTool.url}`}
           class="body-text text-[#EEEEEE] px-12 pt-2 pb-[calc(var(--spacing)*2.5)] rounded-full bg-[#222222] font-medium leading-none text-center flex items-center justify-center gap-4"
         >
           <span aria-hidden="true" class="text-xl">&#9654;</span>
