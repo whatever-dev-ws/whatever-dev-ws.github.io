@@ -1,21 +1,21 @@
 <script lang="ts">
-  import type { Sketch } from '@utils/types';
+  import type { Tool } from '@utils/types';
   import { BASE_URL } from '@utils/constants';
 
   type Props = {
-    sketches: Sketch[];
+    tools: Tool[];
   };
 
-  let { sketches }: Props = $props();
+  let { tools }: Props = $props();
 </script>
 
 <section>
   <div class="flex flex-col gap-8">
     <h2 class="heading-text">All the tools from this workshop</h2>
     <ul class="list-none space-y-4">
-      {#each sketches as sketch}
+      {#each tools as tool}
         <li class="body-text">
-          <a href={`/tool-viewer?tool=${BASE_URL}/${sketch.filename}`}>{sketch.id}</a>
+          <a href={`/tool-viewer?tool=${BASE_URL}/${tool.url}`}>{tool.name} ({tool.id})</a>
         </li>
       {/each}
     </ul>

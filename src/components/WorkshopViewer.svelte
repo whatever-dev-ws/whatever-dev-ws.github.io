@@ -16,7 +16,7 @@
 {:then manifest}
   <div class="flex flex-col gap-16">
     <OutputGallery outputs={manifest.outputs} />
-    <ToolsList sketches={manifest.sketches} />
+    <ToolsList tools={manifest.tools} />
   </div>
 {:catch error}
   <div>

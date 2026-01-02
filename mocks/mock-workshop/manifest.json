@@ -1,33 +1,48 @@
 {
-  "sketches": [
+  "tools": [
     {
       "id": "mariorossi-bouncingBall-c96877",
       "author": "mariorossi",
-      "filename": "sketches/mariorossi-bouncingBall-c96877.js",
+      "name": "Bouncing Ball",
+      "description": "A yellow ball that bounces off the walls",
+      "model": "Claude",
+      "url": "tools/mariorossi-bouncingBall-c96877.js",
       "uploadedAt": "2025-12-30T12:58:27Z"
     },
     {
       "id": "mariorossi-colorfulSpiral-0e642b",
       "author": "mariorossi",
-      "filename": "sketches/mariorossi-colorfulSpiral-0e642b.js",
+      "name": "Colorful Spiral",
+      "description": "A colorful spiral that grows from the center of the screen",
+      "model": "Claude",
+      "url": "tools/mariorossi-colorfulSpiral-0e642b.js",
       "uploadedAt": "2025-12-30T12:53:27Z"
     },
     {
       "id": "mariorossi-mouseCircle-2bc40b",
       "author": "mariorossi",
-      "filename": "sketches/mariorossi-mouseCircle-2bc40b.js",
+      "name": "Mouse Circle",
+      "description": "A circle that follows the mouse",
+      "model": "Grok",
+      "url": "tools/mariorossi-mouseCircle-2bc40b.js",
       "uploadedAt": "2025-12-30T12:57:27Z"
     },
     {
       "id": "mariorossi-peripheralTest-e6e16b",
       "author": "mariorossi",
-      "filename": "sketches/mariorossi-peripheralTest-e6e16b.js",
+      "name": "Peripheral Test",
+      "description": "A test file that checks if the peripherals are working",
+      "model": "Gemini",
+      "url": "tools/mariorossi-peripheralTest-e6e16b.js",
       "uploadedAt": "2025-12-30T13:00:27Z"
     },
     {
       "id": "mariorossi-randomShapes-1effb1",
       "author": "mariorossi",
-      "filename": "sketches/mariorossi-randomShapes-1effb1.js",
+      "name": "Random Shapes",
+      "description": "Random colorful shapes that appear on the screen",
+      "model": "ChatGPT",
+      "url": "tools/mariorossi-randomShapes-1effb1.js",
       "uploadedAt": "2025-12-30T12:47:27Z"
     }
   ],
@@ -35,29 +50,29 @@
     {
       "id": "bouncingBall-dc69a0",
       "sketchId": "mariorossi-bouncingBall-c96877",
-      "sketchFilename": "sketches/mariorossi-bouncingBall-c96877.js",
-      "filename": "outputs/bouncingBall-dc69a0.png",
+      "sketchUrl": "tools/mariorossi-bouncingBall-c96877.js",
+      "url": "outputs/bouncingBall-dc69a0.png",
       "createdAt": "2025-12-30T13:15:27Z"
     },
     {
       "id": "colorfulSpiral-6117de",
       "sketchId": "mariorossi-colorfulSpiral-0e642b",
-      "sketchFilename": "sketches/mariorossi-colorfulSpiral-0e642b.js",
-      "filename": "outputs/colorfulSpiral-6117de.png",
+      "sketchUrl": "tools/mariorossi-colorfulSpiral-0e642b.js",
+      "url": "outputs/colorfulSpiral-6117de.png",
       "createdAt": "2025-12-30T12:18:27Z"
     },
     {
       "id": "mouseCircle-755a49",
       "sketchId": "mariorossi-mouseCircle-2bc40b",
-      "sketchFilename": "sketches/mariorossi-mouseCircle-2bc40b.js",
-      "filename": "outputs/mouseCircle-755a49.png",
+      "sketchUrl": "tools/mariorossi-mouseCircle-2bc40b.js",
+      "url": "outputs/mouseCircle-755a49.png",
       "createdAt": "2025-12-30T13:14:27Z"
     },
     {
       "id": "randomShapes-f85f03",
       "sketchId": "mariorossi-randomShapes-1effb1",
-      "sketchFilename": "sketches/mariorossi-randomShapes-1effb1.js",
-      "filename": "outputs/randomShapes-f85f03.png",
+      "sketchUrl": "tools/mariorossi-randomShapes-1effb1.js",
+      "url": "outputs/randomShapes-f85f03.png",
       "createdAt": "2025-12-30T13:04:27Z"
     }
   ]
