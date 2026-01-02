@@ -1,13 +1,13 @@
 <script lang="ts">
   import type { Output } from '@utils/types';
-  import { DEV_URL } from '@utils/constants';
 
   type Props = {
     outputs: Output[];
     onSelectTool: (toolId: string) => void;
+    baseUrl: string;
   };
 
-  let { outputs, onSelectTool }: Props = $props();
+  let { outputs, onSelectTool, baseUrl }: Props = $props();
 
   let galleryOutputs = $derived(
     outputs
@@ -26,7 +26,7 @@
           class="block w-full h-full"
         >
           <img
-            src={`${DEV_URL}/${output.url}`}
+            src={`${baseUrl}/${output.url}`}
             alt={`Output ${output.id} for tool ${output.toolId}`}
             class="w-full h-full object-contain"
             loading="lazy"

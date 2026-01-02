@@ -9,10 +9,11 @@
 
   let { repoUrl }: Props = $props();
 
-  let manifestPromise = $derived.by(() => {
-    const baseUrl = import.meta.env.DEV ? DEV_URL : repoUrl;
-    return fetch(`${baseUrl}/manifest.json`).then((res): Promise<Manifest> => res.json());
-  });
+  let baseUrl = $derived(import.meta.env.DEV ? DEV_URL : repoUrl);
+
+  let manifestPromise = $derived(
+    fetch(`${baseUrl}/manifest.json`).then((res): Promise<Manifest> => res.json()),
+  );
 </script>
 
 {#await manifestPromise}
@@ -20,7 +21,7 @@
     <p>Loading...</p>
   </div>
 {:then manifest}
-  <WorkshopContent {manifest} />
+  <WorkshopContent {baseUrl} {manifest} />
 {:catch error}
   <div>
     <p>Error: {error.message}</p>

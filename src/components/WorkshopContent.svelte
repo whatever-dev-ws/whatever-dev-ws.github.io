@@ -8,9 +8,10 @@
 
   type Props = {
     manifest: Manifest;
+    baseUrl: string;
   };
 
-  let { manifest }: Props = $props();
+  let { manifest, baseUrl }: Props = $props();
 
   let selectedToolId = $state<string | null>(null);
   let selectedTool = $derived.by(() => {
@@ -26,7 +27,7 @@
   }
 
   async function downloadFile(url: string, id: string) {
-    const response = await fetch(`${DEV_URL}/${url}`);
+    const response = await fetch(`${baseUrl}/${url}`);
     if (!response.ok) throw new Error(`Download failed: ${response.status}`);
     const blob = await response.blob();
     const objectUrl = URL.createObjectURL(blob);
@@ -43,7 +44,7 @@
 </script>
 
 <div class="flex flex-col gap-16">
-  <OutputGallery outputs={manifest.outputs} onSelectTool={handleSelectTool} />
+  <OutputGallery outputs={manifest.outputs} onSelectTool={handleSelectTool} {baseUrl} />
   <ToolsList tools={manifest.tools} onSelectTool={handleSelectTool} />
 </div>
 
@@ -61,7 +62,7 @@
       </div>
       <div class="flex flex-col md:flex-row md:gap-8 gap-4">
         <Button.Root
-          href={`/tool-viewer?tool=${DEV_URL}/${selectedTool.url}`}
+          href={`/tool-viewer?tool=${baseUrl}/${selectedTool.url}`}
           class="body-text text-[#EEEEEE] px-12 pt-2 pb-[calc(var(--spacing)*2.5)] rounded-full bg-[#222222] font-medium leading-none text-center flex items-center justify-center gap-4"
         >
           <span aria-hidden="true" class="text-xl">&#9654;</span>
@@ -79,4 +80,4 @@
       </div>
     </div>
   {/if}
-</Modal>  
+</Modal>
