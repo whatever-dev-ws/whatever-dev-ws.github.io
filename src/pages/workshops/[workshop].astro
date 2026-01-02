@@ -1,0 +1,26 @@
+---
+import Layout from '@layouts/Layout.astro';
+import WorkshopViewer from '@components/WorkshopViewer.svelte';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const workshops = await getCollection('workshops');
+  return workshops.map((workshop) => ({
+    params: { workshop: workshop.id },
+    props: { ...workshop.data },
+  }));
+}
+
+const { title, repoUrl } = Astro.props;
+---
+
+<Layout>
+  <main>
+    <div class="mx-auto flex max-w-5xl flex-col gap-24 px-4 py-30 md:px-8">
+      <header>
+        <h1 class="hero-heading-text">{title}</h1>
+      </header>
+      <WorkshopViewer repoUrl={repoUrl} client:load />
+    </div>
+  </main>
+</Layout>

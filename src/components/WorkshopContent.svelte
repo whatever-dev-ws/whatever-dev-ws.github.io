@@ -3,7 +3,7 @@
   import { Button } from 'bits-ui';
   import ToolsList from './ToolsList.svelte';
   import Modal from './Modal.svelte';
-  import { BASE_URL } from '@utils/constants';
+  import { DEV_URL } from '@utils/constants';
   import type { Manifest } from '@utils/types';
 
   type Props = {
@@ -26,7 +26,7 @@
   }
 
   async function downloadFile(url: string, id: string) {
-    const response = await fetch(`${BASE_URL}/${url}`);
+    const response = await fetch(`${DEV_URL}/${url}`);
     if (!response.ok) throw new Error(`Download failed: ${response.status}`);
     const blob = await response.blob();
     const objectUrl = URL.createObjectURL(blob);
@@ -61,7 +61,7 @@
       </div>
       <div class="flex flex-col md:flex-row md:gap-8 gap-4">
         <Button.Root
-          href={`/tool-viewer?tool=${BASE_URL}/${selectedTool.url}`}
+          href={`/tool-viewer?tool=${DEV_URL}/${selectedTool.url}`}
           class="body-text text-[#EEEEEE] px-12 pt-2 pb-[calc(var(--spacing)*2.5)] rounded-full bg-[#222222] font-medium leading-none text-center flex items-center justify-center gap-4"
         >
           <span aria-hidden="true" class="text-xl">&#9654;</span>
@@ -79,4 +79,4 @@
       </div>
     </div>
   {/if}
-</Modal>
+</Modal>  

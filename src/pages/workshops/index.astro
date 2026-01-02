@@ -1,0 +1,23 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const workshops = await getCollection('workshops');
+---
+
+<Layout>
+  <main>
+    <div class="mx-auto flex max-w-5xl flex-col gap-24 px-4 py-30 md:px-8">
+      <h1 class="hero-heading-text">Workshops</h1>
+      <ul>
+        {
+          workshops.map((workshop) => (
+            <li>
+              <a href={`/workshops/${workshop.id}`}>{workshop.data.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </main>
+</Layout>

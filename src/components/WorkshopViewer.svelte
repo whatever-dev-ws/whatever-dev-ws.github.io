@@ -1,11 +1,18 @@
 <script lang="ts">
   import WorkshopContent from './WorkshopContent.svelte';
-  import { BASE_URL } from '@utils/constants';
+  import { DEV_URL } from '@utils/constants';
   import type { Manifest } from '@utils/types';
 
-  let manifestPromise = $state(
-    fetch(`${BASE_URL}/manifest.json`).then((res): Promise<Manifest> => res.json()),
-  );
+  type Props = {
+    repoUrl: string;
+  };
+
+  let { repoUrl }: Props = $props();
+
+  let manifestPromise = $derived.by(() => {
+    const baseUrl = import.meta.env.DEV ? DEV_URL : repoUrl;
+    return fetch(`${baseUrl}/manifest.json`).then((res): Promise<Manifest> => res.json());
+  });
 </script>
 
 {#await manifestPromise}

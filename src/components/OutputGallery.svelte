@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Output } from '@utils/types';
-  import { BASE_URL } from '@utils/constants';
+  import { DEV_URL } from '@utils/constants';
 
   type Props = {
     outputs: Output[];
@@ -26,7 +26,7 @@
           class="block w-full h-full"
         >
           <img
-            src={`${BASE_URL}/${output.url}`}
+            src={`${DEV_URL}/${output.url}`}
             alt={`Output ${output.id} for tool ${output.toolId}`}
             class="w-full h-full object-contain"
             loading="lazy"
