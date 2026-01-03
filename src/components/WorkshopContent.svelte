@@ -24,7 +24,7 @@
     const params = new URLSearchParams({
       tool: `${baseUrl}/${selectedTool.url}`,
     });
-    return `${currentWorkshopPath}tool-viewer/?${params.toString()}`;
+    return `${currentWorkshopPath}/tool-viewer/?${params.toString()}`;
   });
 
   let downloadPromise = $state<Promise<void> | null>(null);
