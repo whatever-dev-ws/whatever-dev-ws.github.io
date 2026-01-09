@@ -1,7 +1,6 @@
 <script lang="ts">
   import WorkshopContent from './WorkshopContent.svelte';
   import UploadFormModal from './UploadFormModal.svelte';
-  import { DEV_URL } from '@utils/constants';
   import type { Manifest } from '@utils/types';
 
   type Props = {
@@ -11,7 +10,7 @@
 
   let { repoUrl, currentWorkshopPath }: Props = $props();
 
-  let baseUrl = $derived(import.meta.env.DEV ? DEV_URL : repoUrl);
+  let baseUrl = $derived(import.meta.env.PUBLIC_BASE_URL ?? repoUrl);
 
   let manifestPromise = $derived(
     fetch(`${baseUrl}/manifest.json`).then((res): Promise<Manifest> => res.json()),
