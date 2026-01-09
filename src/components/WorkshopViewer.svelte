@@ -1,5 +1,6 @@
 <script lang="ts">
   import WorkshopContent from './WorkshopContent.svelte';
+  import UploadFormModal from './UploadFormModal.svelte';
   import { DEV_URL } from '@utils/constants';
   import type { Manifest } from '@utils/types';
 
@@ -16,6 +17,8 @@
     fetch(`${baseUrl}/manifest.json`).then((res): Promise<Manifest> => res.json()),
   );
 </script>
+
+<UploadFormModal />
 
 {#await manifestPromise}
   <div>

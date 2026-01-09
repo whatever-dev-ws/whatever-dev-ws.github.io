@@ -13,3 +13,7 @@
 .body-text {
   @apply font-body text-base leading-[1.4] md:text-lg;
 }
+
+.ui-text {
+  @apply font-body text-base leading-none font-medium md:text-lg;
+}
