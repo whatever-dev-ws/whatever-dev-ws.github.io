@@ -20,6 +20,8 @@ jobs:
         uses: withastro/action@v5
         with:
           node-version: 24
+          env:
+            PUBLIC_ASSETS_REPO_URL: https://whatever-dev-ws.github.io/mock-workshops-repo
 
   deploy:
     needs: build
