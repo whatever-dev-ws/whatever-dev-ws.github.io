@@ -12,7 +12,9 @@ export async function getStaticPaths() {
 }
 
 const { pathname } = Astro.url;
-const { title, repoUrl } = Astro.props;
+const { title, remoteAssetsSlug, isActive } = Astro.props;
+
+const remoteAssetsUrl = `${import.meta.env.PUBLIC_ASSETS_REPO_URL}/${remoteAssetsSlug}`;
 ---
 
 <Layout>
@@ -21,7 +23,7 @@ const { title, repoUrl } = Astro.props;
       <header>
         <h1 class="hero-heading-text">{title}</h1>
       </header>
-      <WorkshopViewer repoUrl={repoUrl} currentWorkshopPath={pathname} client:load />
+      <WorkshopViewer {remoteAssetsUrl} currentWorkshopPath={pathname} isWorkshopActive={isActive} client:load />
     </div>
   </main>
 </Layout>

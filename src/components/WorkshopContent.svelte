@@ -7,11 +7,11 @@
 
   type Props = {
     manifest: Manifest;
-    baseUrl: string;
+    remoteAssetsUrl: string;
     currentWorkshopPath: string;
   };
 
-  let { manifest, baseUrl, currentWorkshopPath }: Props = $props();
+  let { manifest, remoteAssetsUrl, currentWorkshopPath }: Props = $props();
 
   let selectedToolId = $state<string | null>(null);
   let selectedTool = $derived.by(() => {
@@ -22,7 +22,7 @@
   let toolViewerUrl = $derived.by(() => {
     if (!selectedTool) return '';
     const params = new URLSearchParams({
-      tool: `${baseUrl}/${selectedTool.url}`,
+      tool: `${remoteAssetsUrl}/${selectedTool.url}`,
     });
     return `${currentWorkshopPath}/tool-viewer/?${params.toString()}`;
   });
@@ -34,7 +34,7 @@
   }
 
   async function downloadFile(url: string, id: string) {
-    const response = await fetch(`${baseUrl}/${url}`);
+    const response = await fetch(`${remoteAssetsUrl}/${url}`);
     if (!response.ok) throw new Error(`Download failed: ${response.status}`);
     const blob = await response.blob();
     const objectUrl = URL.createObjectURL(blob);
@@ -51,7 +51,7 @@
 </script>
 
 <div class="flex flex-col gap-16">
-  <OutputGallery outputs={manifest.outputs} onSelectTool={handleSelectTool} {baseUrl} />
+  <OutputGallery outputs={manifest.outputs} onSelectTool={handleSelectTool} {remoteAssetsUrl} />
   <ToolsList tools={manifest.tools} onSelectTool={handleSelectTool} />
 </div>
 

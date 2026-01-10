@@ -4,10 +4,10 @@
   type Props = {
     outputs: Output[];
     onSelectTool: (toolId: string) => void;
-    baseUrl: string;
+    remoteAssetsUrl: string;
   };
 
-  let { outputs, onSelectTool, baseUrl }: Props = $props();
+  let { outputs, onSelectTool, remoteAssetsUrl }: Props = $props();
 
   let galleryOutputs = $derived(
     outputs
@@ -26,7 +26,7 @@
           class="block w-full h-full"
         >
           <img
-            src={`${baseUrl}/${output.url}`}
+            src={`${remoteAssetsUrl}/${output.url}`}
             alt={`Output ${output.id} for tool ${output.toolId}`}
             class="w-full h-full object-contain"
             loading="lazy"

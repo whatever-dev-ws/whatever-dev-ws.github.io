@@ -4,27 +4,28 @@
   import type { Manifest } from '@utils/types';
 
   type Props = {
-    repoUrl: string;
+    remoteAssetsUrl: string;
     currentWorkshopPath: string;
+    isWorkshopActive: boolean;
   };
 
-  let { repoUrl, currentWorkshopPath }: Props = $props();
-
-  let baseUrl = $derived(import.meta.env.PUBLIC_BASE_URL ?? repoUrl);
+  let { remoteAssetsUrl, currentWorkshopPath, isWorkshopActive }: Props = $props();
 
   let manifestPromise = $derived(
-    fetch(`${baseUrl}/manifest.json`).then((res): Promise<Manifest> => res.json()),
+    fetch(`${remoteAssetsUrl}/manifest.json`).then((res): Promise<Manifest> => res.json()),
   );
 </script>
 
-<UploadFormModal />
+{#if isWorkshopActive}
+  <UploadFormModal />
+{/if}
 
 {#await manifestPromise}
   <div>
     <p>Loading...</p>
   </div>
 {:then manifest}
-  <WorkshopContent {baseUrl} {manifest} {currentWorkshopPath} />
+  <WorkshopContent {remoteAssetsUrl} {manifest} {currentWorkshopPath} />
 {:catch error}
   <div>
     <p>Error: {error.message}</p>
