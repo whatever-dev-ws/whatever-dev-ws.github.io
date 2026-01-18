@@ -1,3 +1,5 @@
+import type { ZodIssue } from 'astro/zod';
+
 export type Tool = {
   id: string;
   author: string;
@@ -20,3 +22,9 @@ export type Manifest = {
   tools: Tool[];
   outputs: Output[];
 };
+
+export type ValidationErrorResponse = { success: false; error: { issues: ZodIssue[] } };
+
+export type GeneralErrorResponse = { success: false; error: { message: string } };
+
+export type ErrorResponse = ValidationErrorResponse | GeneralErrorResponse;

@@ -22,6 +22,7 @@ jobs:
           node-version: 24
         env:
           PUBLIC_ASSETS_REPO_URL: https://whatever-dev-ws.github.io/mock-workshops-repo
+          P5_TOOL_UPLOADER_WORKER_URL: https://p5-tool-uploader.michele-muffin.workers.dev
 
   deploy:
     needs: build
