@@ -91,7 +91,7 @@
         <div class="flex flex-col gap-4">
           <form
             class="flex flex-col gap-4"
-            action={import.meta.env.P5_TOOL_UPLOADER_WORKER_URL}
+            action={import.meta.env.PUBLIC_P5_TOOL_UPLOADER_WORKER_URL}
             method="POST"
             use:uploadToolForm
           >
