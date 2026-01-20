@@ -51,8 +51,12 @@
 </script>
 
 <div class="flex flex-col gap-16">
-  <OutputGallery outputs={manifest.outputs} onSelectTool={handleSelectTool} {remoteAssetsUrl} />
-  <ToolsList tools={manifest.tools} onSelectTool={handleSelectTool} />
+  {#if manifest.outputs?.length > 0}
+    <OutputGallery outputs={manifest.outputs} onSelectTool={handleSelectTool} {remoteAssetsUrl} />
+  {/if}
+  {#if manifest.tools?.length > 0}
+    <ToolsList tools={manifest.tools} onSelectTool={handleSelectTool} />
+  {/if}
 </div>
 
 <Modal open={selectedToolId !== null} onClose={() => (selectedToolId = null)}>
