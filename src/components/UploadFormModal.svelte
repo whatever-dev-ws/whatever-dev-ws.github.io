@@ -24,9 +24,14 @@
     onSuccess: (response) => {
       console.log('Upload successful', response);
     },
-    onError: async (error) => {
-      if (error instanceof FelteSubmitError) {
-        const errorResponse: ErrorResponse = await error.response.json();
+    onError: async (submitError) => {
+      if (!(submitError instanceof FelteSubmitError)) {
+        submissionError = `${submitError instanceof Error ? submitError.message : 'Unknown error'}`;
+        return;
+      }
+
+      try {
+        const errorResponse: ErrorResponse = await submitError.response.json();
 
         if (isValidationError(errorResponse)) {
           return errorResponse.error.issues.reduce(
@@ -38,7 +43,10 @@
           );
         }
 
-        submissionError = `${error.response.status}: ${errorResponse.error.message}`;
+        submissionError = `${submitError.response.status}: ${errorResponse.error.message}`;
+        return;
+      } catch (error) {
+        submissionError = `Server error (${submitError.response.status}): ${submitError.response.statusText || 'Internal Server Error'}`;
       }
     },
     extend: [validator({ schema: uploadToolSchema }), reporter],
@@ -208,11 +216,16 @@
             </button>
           </form>
           {#if submissionError}
-            <div role="alert" aria-live="assertive" class="p-4 bg-red-50 border border-red-200">
+            <div
+              role="alert"
+              aria-live="assertive"
+              class="p-4 bg-red-50 border border-red-200 flex flex-col gap-4"
+            >
               <p class="ui-text text-red-500">
                 <span class="font-semibold">The upload failed, and the server responded with:</span>
-                <span class="body-text block mt-2">{submissionError}</span>
+                <span class="block mt-2">{submissionError}</span>
               </p>
+              <p class="ui-text text-red-500 mt-2 font-semibold">Wait a bit and try again.</p>
             </div>
           {/if}
         </div>
