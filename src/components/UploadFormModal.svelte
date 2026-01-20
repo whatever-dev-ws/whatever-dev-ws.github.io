@@ -7,22 +7,32 @@
   import type { UploadToolFormData } from '@schemas/uploadTool';
   import type { ZodIssue } from 'astro/zod';
   import type { ErrorResponse, ValidationErrorResponse } from '@utils/types';
+  import SubmitButton from '@components/SubmitButton.svelte';
 
   function isValidationError(
     errorResponse: ErrorResponse,
   ): errorResponse is ValidationErrorResponse {
     return 'issues' in errorResponse.error;
   }
-
   const {
     form: uploadToolForm,
     data,
     setData,
     setTouched,
     isSubmitting,
+    interacted,
   } = createForm<UploadToolFormData>({
     onSuccess: (response) => {
-      console.log('Upload successful', response);
+      submissionSuccess = true;
+
+      if (successTimeoutId) {
+        clearTimeout(successTimeoutId);
+      }
+
+      successTimeoutId = setTimeout(() => {
+        submissionSuccess = false;
+        successTimeoutId = null;
+      }, 3000);
     },
     onError: async (submitError) => {
       if (!(submitError instanceof FelteSubmitError)) {
@@ -52,10 +62,29 @@
     extend: [validator({ schema: uploadToolSchema }), reporter],
   });
 
+  let submissionSuccess = $state(false);
+  let successTimeoutId: ReturnType<typeof setTimeout> | null = null;
   let isDragging = $state(false);
   let toolFile = $derived(getValue($data, 'toolFile'));
   let submissionError = $state<string | undefined>();
   let toolFileInput: HTMLInputElement;
+  let buttonState = $derived<'default' | 'loading' | 'success'>(
+    submissionSuccess ? 'success' : $isSubmitting ? 'loading' : 'default',
+  );
+
+  // Clear submission error when user attempts a new submission
+  $effect(() => {
+    if ($isSubmitting) {
+      submissionError = undefined;
+    }
+  });
+
+  // Clear submission error when user modifies form after error
+  $effect(() => {
+    if ($interacted && submissionError) {
+      submissionError = undefined;
+    }
+  });
 
   function handleDragOver(event: DragEvent) {
     event.preventDefault();
@@ -203,17 +232,7 @@
               </ValidationMessage>
             </div>
             <!-- Submit Button -->
-            <button
-              type="submit"
-              disabled={$isSubmitting}
-              class:disabled={$isSubmitting}
-              class="ui-text text-[#EEEEEE] px-8 pt-3 pb-[calc(var(--spacing)*3.5)] rounded-full
-        bg-[#222222] text-center flex items-center justify-center gap-4
-        self-start"
-            >
-              <span aria-hidden="true" class="text-xl leading-none">&#9650;</span>
-              <span>Upload Tool</span>
-            </button>
+            <SubmitButton state={buttonState} label="Upload Tool" />
           </form>
           {#if submissionError}
             <div
@@ -237,8 +256,5 @@
 <style lang="postcss">
   .dragging {
     @apply border-[#222222] ring-2 ring-[#222222] ring-offset-2 outline-none;
-  }
-  .disabled {
-    @apply pointer-events-none cursor-not-allowed opacity-60;
   }
 </style>
