@@ -15,7 +15,13 @@ const backPath = `/workshops/${workshop}`;
 
 <Layout>
   <nav class="absolute bottom-0 left-0 z-10 p-4">
-    <a href={backPath} class="body-text text-[#EEEEEE] hover:underline"> &lt; Gallery List </a>
+    <a
+      href={backPath}
+      class="ui-text px-8 pt-3 pb-[calc(var(--spacing)*3.5)] rounded-full text-center flex items-center justify-center gap-4  focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#222222] text-[#222222] bg-[#EEEEEE]"
+    >
+      <span aria-hidden="true" class="text-xl leading-none">&#9664;</span>
+      <span>Gallery List</span>
+    </a>
   </nav>
   <main id="tool-container" class="h-screen w-screen"></main>
 </Layout>
