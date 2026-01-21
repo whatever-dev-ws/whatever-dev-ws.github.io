@@ -74,7 +74,7 @@ const backPath = `/workshops/${workshop}`;
       iframe.src = `https://p5-tool-viewer.michele-muffin.workers.dev/?tool=${encodeURIComponent(url)}`;
     }
 
-    iframe.sandbox.add('allow-scripts', 'allow-same-origin');
+    iframe.sandbox.add('allow-scripts', 'allow-same-origin', 'allow-downloads');
     iframe.allow = 'camera; microphone; accelerometer; gyroscope';
 
     container.appendChild(iframe);
