@@ -9,16 +9,14 @@
 
   let { outputs, onSelectTool, remoteAssetsUrl }: Props = $props();
 
-  let galleryOutputs = $derived(
-    outputs
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      .slice(0, 8),
+  let sortedOutputs = $derived(
+    outputs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
   );
 </script>
 
 <section>
   <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {#each galleryOutputs as output}
+    {#each sortedOutputs as output}
       <li class="bg-[#EEEEEE] aspect-3/2">
         <button
           type="button"

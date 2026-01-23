@@ -1,6 +1,6 @@
 <script lang="ts">
   import OutputGallery from './OutputGallery.svelte';
-  import { Button } from 'bits-ui';
+  import { Button, Tabs } from 'bits-ui';
   import ToolsList from './ToolsList.svelte';
   import Modal from './Modal.svelte';
   import type { Manifest } from '@utils/types';
@@ -12,6 +12,10 @@
   };
 
   let { manifest, remoteAssetsUrl, currentWorkshopPath }: Props = $props();
+
+  const hasOutputs = $derived(manifest.outputs?.length > 0);
+  const hasTools = $derived(manifest.tools?.length > 0);
+  const defaultTab = $derived(hasOutputs ? 'outputs' : 'tools');
 
   let selectedToolId = $state<string | null>(null);
   let selectedTool = $derived.by(() => {
@@ -50,14 +54,40 @@
   }
 </script>
 
-<div class="flex flex-col gap-16">
-  {#if manifest.outputs?.length > 0}
-    <OutputGallery outputs={manifest.outputs} onSelectTool={handleSelectTool} {remoteAssetsUrl} />
-  {/if}
-  {#if manifest.tools?.length > 0}
-    <ToolsList tools={manifest.tools} onSelectTool={handleSelectTool} />
-  {/if}
-</div>
+{#if hasOutputs || hasTools}
+  <Tabs.Root value={defaultTab}>
+    <Tabs.List class="flex gap-2 border border-[#DDDDDD] rounded-full p-1 mb-12 w-fit bg-[#F5F5F5]">
+      <Tabs.Trigger
+        value="outputs"
+        disabled={!hasOutputs}
+        class="ui-text px-8 pt-3 pb-[calc(var(--spacing)*3.5)] rounded-full font-medium transition-all duration-200 data-[state=active]:bg-[#222222] data-[state=active]:text-[#EEEEEE] data-[state=inactive]:bg-transparent data-[state=inactive]:text-[#666666] data-[disabled]:opacity-40 data-[disabled]:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#222222]"
+      >
+        Outputs
+      </Tabs.Trigger>
+      <Tabs.Trigger
+        value="tools"
+        disabled={!hasTools}
+        class="ui-text px-8 pt-3 pb-[calc(var(--spacing)*3.5)] rounded-full font-medium transition-all duration-200 data-[state=active]:bg-[#222222] data-[state=active]:text-[#EEEEEE] data-[state=inactive]:bg-transparent data-[state=inactive]:text-[#666666] data-[disabled]:opacity-40 data-[disabled]:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#222222]"
+      >
+        Tools
+      </Tabs.Trigger>
+    </Tabs.List>
+    {#if hasOutputs}
+      <Tabs.Content value="outputs">
+        <OutputGallery
+          outputs={manifest.outputs}
+          onSelectTool={handleSelectTool}
+          {remoteAssetsUrl}
+        />
+      </Tabs.Content>
+    {/if}
+    {#if hasTools}
+      <Tabs.Content value="tools">
+        <ToolsList tools={manifest.tools} onSelectTool={handleSelectTool} />
+      </Tabs.Content>
+    {/if}
+  </Tabs.Root>
+{/if}
 
 <Modal open={selectedToolId !== null} onClose={() => (selectedToolId = null)}>
   {#if selectedTool}
