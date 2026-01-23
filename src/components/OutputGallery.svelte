@@ -21,7 +21,7 @@
         <button
           type="button"
           onclick={() => onSelectTool(output.toolId)}
-          class="block w-full h-full"
+          class="block w-full h-full cursor-pointer"
         >
           <img
             src={`${remoteAssetsUrl}/${output.url}`}

@@ -15,7 +15,11 @@
     <ul class="list-none space-y-4">
       {#each tools as tool}
         <li class="body-text">
-          <button type="button" onclick={() => onSelectTool(tool.id)}>{tool.id}</button>
+          <button
+            type="button"
+            class="hover:underline cursor-pointer"
+            onclick={() => onSelectTool(tool.id)}>{tool.id}</button
+          >
         </li>
       {/each}
     </ul>
