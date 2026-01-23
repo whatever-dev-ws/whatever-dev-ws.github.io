@@ -3,8 +3,8 @@
   import { createForm, FelteSubmitError, getValue } from 'felte';
   import { validator } from '@felte/validator-zod';
   import { reporter, ValidationMessage } from '@felte/reporter-svelte';
-  import { uploadToolSchema } from '@schemas/uploadTool';
-  import type { UploadToolFormData } from '@schemas/uploadTool';
+  import { uploadOutputSchema } from '@schemas/uploadOutput';
+  import type { UploadOutputFormData } from '@schemas/uploadOutput';
   import type { ZodIssue } from 'astro/zod';
   import type { ErrorResponse, ValidationErrorResponse } from '@utils/types';
   import SubmitButton from '@components/SubmitButton.svelte';
@@ -14,14 +14,15 @@
   ): errorResponse is ValidationErrorResponse {
     return 'issues' in errorResponse.error;
   }
+
   const {
-    form: uploadToolForm,
+    form: uploadOutputForm,
     data,
     setData,
     setTouched,
     isSubmitting,
     interacted,
-  } = createForm<UploadToolFormData>({
+  } = createForm<UploadOutputFormData>({
     onSuccess: (response) => {
       submissionSuccess = true;
 
@@ -59,18 +60,27 @@
         submissionError = `Server error (${submitError.response.status}): ${submitError.response.statusText || 'Internal Server Error'}`;
       }
     },
-    extend: [validator({ schema: uploadToolSchema }), reporter],
+    extend: [validator({ schema: uploadOutputSchema }), reporter],
   });
 
   let submissionSuccess = $state(false);
   let successTimeoutId: ReturnType<typeof setTimeout> | null = null;
   let isDragging = $state(false);
-  let toolFile = $derived(getValue($data, 'toolFile'));
+  let outputFile = $derived(getValue($data, 'outputFile'));
+  let toolId = $derived(getValue($data, 'toolId'));
   let submissionError = $state<string | undefined>();
-  let toolFileInput: HTMLInputElement;
+  let outputFileInput: HTMLInputElement;
   let buttonState = $derived<'default' | 'loading' | 'success'>(
     submissionSuccess ? 'success' : $isSubmitting ? 'loading' : 'default',
   );
+
+  // Extract toolId from URL on mount
+  $effect(() => {
+    const toolUrl = new URLSearchParams(window.location.search).get('tool');
+    const match = toolUrl?.match(/tools\/([^/]+)\.js$/);
+    const toolId = match?.[1] ?? '';
+    setData('toolId', toolId);
+  });
 
   // Clear submission error when user attempts a new submission
   $effect(() => {
@@ -102,9 +112,9 @@
     isDragging = false;
 
     if (event.dataTransfer?.files) {
-      setData('toolFile', event.dataTransfer.files[0]);
-      setTouched('toolFile', true);
-      toolFileInput.files = event.dataTransfer.files;
+      setData('outputFile', event.dataTransfer.files[0]);
+      setTouched('outputFile', true);
+      outputFileInput.files = event.dataTransfer.files;
     }
   }
 </script>
@@ -116,7 +126,7 @@
     self-start"
   >
     <span aria-hidden="true" class="text-xl">&#9650;</span>
-    <span>Upload a tool</span>
+    <span>Upload output</span>
   </Dialog.Trigger>
   <Dialog.Portal>
     <Dialog.Overlay class="fixed inset-0 z-50 bg-black/50" />
@@ -124,77 +134,26 @@
       class="fixed left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%] md:p-16 bg-[#EEEEEE] max-w-2xl w-full p-6"
     >
       <div class="flex flex-col gap-8">
-        <Dialog.Title class="heading-text text-[#222222]">Upload a tool</Dialog.Title>
+        <Dialog.Title class="heading-text text-[#222222]">Upload output</Dialog.Title>
         <div class="flex flex-col gap-4">
           <form
             class="flex flex-col gap-4"
-            action={`${import.meta.env.PUBLIC_P5_TOOL_UPLOADER_WORKER_URL}/upload/tool`}
+            action={`${import.meta.env.PUBLIC_P5_TOOL_UPLOADER_WORKER_URL}/upload/output`}
             method="POST"
-            use:uploadToolForm
+            use:uploadOutputForm
           >
-            <!-- Tool Name Input -->
+            <!-- Tool ID (readonly) -->
             <div class="flex flex-col gap-2">
-              <label for="tool-name" class="ui-text text-[#222222]">Tool Name</label>
+              <label for="tool-id" class="ui-text text-[#222222]">Tool ID</label>
               <input
-                id="tool-name"
+                id="tool-id"
                 type="text"
-                name="toolName"
-                placeholder="Spiraling Particles"
-                class="body-text text-[#222222] bg-transparent border border-[#222222] px-3 py-2 placeholder:text-[#888888] focus-visible:border-[#222222] focus-visible:ring-2 focus-visible:ring-[#222222] focus-visible:ring-offset-2 focus-visible:outline-none"
-                required
+                name="toolId"
+                bind:value={toolId}
+                readonly
+                class="body-text text-[#222222] bg-transparent border border-[#222222] px-3 py-2 focus-visible:border-[#222222] focus-visible:ring-2 focus-visible:ring-[#222222] focus-visible:ring-offset-2 focus-visible:outline-none cursor-not-allowed opacity-75"
               />
-              <ValidationMessage for="toolName" let:messages>
-                {#each messages as message}
-                  <span class="ui-text text-red-600 block">{message}</span>
-                {/each}
-              </ValidationMessage>
-            </div>
-            <!-- Tool Description -->
-            <div class="flex flex-col gap-2">
-              <label for="tool-description" class="ui-text text-[#222222]">Description</label>
-              <textarea
-                id="tool-description"
-                name="toolDescription"
-                placeholder="An interactive canvas animation that generates swirling particle systems responding to cursor movement"
-                rows="2"
-                class="body-text text-[#222222] bg-transparent border border-[#222222] px-3 py-2 placeholder:text-[#888888] focus-visible:border-[#222222] focus-visible:ring-2 focus-visible:ring-[#222222] focus-visible:ring-offset-2 focus-visible:outline-none resize-none overflow-y-auto"
-                required
-              ></textarea>
-              <ValidationMessage for="toolDescription" let:messages>
-                {#each messages as message}
-                  <span class="ui-text text-red-600 block">{message}</span>
-                {/each}
-              </ValidationMessage>
-            </div>
-            <!-- User Nickname -->
-            <div class="flex flex-col gap-2">
-              <label for="user-nickname" class="ui-text text-[#222222]">Nickname</label>
-              <input
-                id="user-nickname"
-                type="text"
-                name="nickname"
-                placeholder="mariorossi"
-                class="body-text text-[#222222] bg-transparent border border-[#222222] px-3 py-2 placeholder:text-[#888888] focus-visible:border-[#222222] focus-visible:ring-2 focus-visible:ring-[#222222] focus-visible:ring-offset-2 focus-visible:outline-none"
-                required
-              />
-              <ValidationMessage for="nickname" let:messages>
-                {#each messages as message}
-                  <span class="ui-text text-red-600 block">{message}</span>
-                {/each}
-              </ValidationMessage>
-            </div>
-            <!-- Model Used -->
-            <div class="flex flex-col gap-2">
-              <label for="model-used" class="ui-text text-[#222222]">Model Used</label>
-              <input
-                id="model-used"
-                type="text"
-                name="modelUsed"
-                placeholder="Claude Sonnet 4.5"
-                class="body-text text-[#222222] bg-transparent border border-[#222222] px-3 py-2 placeholder:text-[#888888] focus-visible:border-[#222222] focus-visible:ring-2 focus-visible:ring-[#222222] focus-visible:ring-offset-2 focus-visible:outline-none"
-                required
-              />
-              <ValidationMessage for="modelUsed" let:messages>
+              <ValidationMessage for="toolId" let:messages>
                 {#each messages as message}
                   <span class="ui-text text-red-600 block">{message}</span>
                 {/each}
@@ -203,36 +162,36 @@
             <!-- File Input -->
             <div class="flex flex-col gap-2">
               <label
-                for="tool-file"
+                for="output-file"
                 class:dragging={isDragging}
                 class="flex items-center justify-center body-text font-medium border border-dashed border-[#222222] p-8 text-center body-text text-[#222222] focus-within:border-[#222222] focus-within:ring-2 focus-within:ring-[#222222] focus-within:ring-offset-2 focus-within:outline-none"
                 ondragover={handleDragOver}
                 ondragleave={handleDragLeave}
                 ondrop={handleDrop}
               >
-                {#if toolFile}
-                  <p>Selected: {toolFile.name}</p>
+                {#if outputFile}
+                  <p>Selected: {outputFile.name}</p>
                 {:else}
-                  <p>Drop your tool here or click to upload</p>
+                  <p>Drop your image here or click to upload</p>
                 {/if}
                 <input
-                  bind:this={toolFileInput}
-                  name="toolFile"
-                  id="tool-file"
+                  bind:this={outputFileInput}
+                  name="outputFile"
+                  id="output-file"
                   type="file"
-                  accept=".js"
+                  accept="image/png,image/jpeg,image/webp,image/gif"
                   class="sr-only"
                   required
                 /></label
               >
-              <ValidationMessage for="toolFile" let:messages>
+              <ValidationMessage for="outputFile" let:messages>
                 {#each messages as message}
                   <span class="ui-text text-red-600 block">{message}</span>
                 {/each}
               </ValidationMessage>
             </div>
             <!-- Submit Button -->
-            <SubmitButton state={buttonState} label="Upload Tool" />
+            <SubmitButton state={buttonState} label="Upload Output" />
           </form>
           {#if submissionError}
             <div
