@@ -28,7 +28,7 @@
           <img
             src={`${remoteAssetsUrl}/${output.url}`}
             alt={`Output ${output.id} for tool ${output.toolId}`}
-            class="w-full h-full object-contain"
+            class="w-full h-full object-cover"
             loading="lazy"
           />
         </button>
